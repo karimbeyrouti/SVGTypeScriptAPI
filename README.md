@@ -1,5 +1,5 @@
 =====================
-SVG utility classes for JavaScript / TypeScript
+SVG utility classes for JS / TypeScript
 =====================
 
 1) install nodejs ( http://nodejs.org/ )
