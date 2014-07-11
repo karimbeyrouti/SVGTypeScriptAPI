@@ -1,0 +1,11 @@
+{
+	"name": "Kurst TypeScript - Require JS Test",
+	"description": "A starter project for TypeScript and RequireJS",
+	"version": "0.0.0",
+	"homepage": "",
+	"license": "MIT",
+	"private": true,
+	"dependencies": {
+		"requirejs":"2.1.13"
+	}
+}

@@ -1,0 +1,23 @@
+{
+    "name": "TypeScript-RequireJS-Test",
+    "version": "1.0.0",
+
+    "appVersion": "0.1.0",
+    "description": "",
+    "url": "",
+    "developedBy": "codeBelt",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-ts": "latest",
+		"grunt-contrib-watch":"*",
+		"bower": "latest",
+	    "typescript":"latest",
+	    "grunt-contrib-requirejs":"latest",
+	    "grunt-text-replace":"latest",
+	    "grunt-contrib-copy":"latest"
+    },
+	"scripts": {
+		"postinstall": "bower install"
+
+	}
+}
