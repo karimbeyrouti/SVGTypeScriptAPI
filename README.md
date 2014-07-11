@@ -1,3 +1,7 @@
+=====================
+SVG utility classes for JavaScript / TypeScript
+=====================
+
 1) install nodejs ( http://nodejs.org/ )
 
 2) install grunt cli
