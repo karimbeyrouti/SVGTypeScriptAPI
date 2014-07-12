@@ -1,4 +1,3 @@
-========
 SVG - JS / TypeScript API
 ========
 **Example:** http://kurst.co.uk/samples/svg/
@@ -21,7 +20,8 @@ this.arcPath.fill( '#00ff00' );
 this.svg.append( this.rect );
 ```		
 		
-
+Setup
+========
 1) install nodejs ( http://nodejs.org/ )
 
 2) install grunt cli
