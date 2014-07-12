@@ -1,5 +1,5 @@
 ========
-SVG API JS & TypeScript
+SVG API - JS / TypeScript
 ========
 Example: http://kurst.co.uk/samples/svg/
 
