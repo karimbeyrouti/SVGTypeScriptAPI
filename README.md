@@ -1,6 +1,7 @@
-=====================
-SVG utility classes for JS / TypeScript
-=====================
+========
+SVG API JS & TypeScript
+========
+Example: http://kurst.co.uk/samples/svg/
 
 1) install nodejs ( http://nodejs.org/ )
 
