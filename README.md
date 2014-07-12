@@ -2,7 +2,7 @@ SVG - JS / TypeScript API
 ========
 **Example:** http://kurst.co.uk/samples/svg/
 
-This is a simple and basic API for creating SVG graphics using TypeScript ( or JavaScript ) .
+This is a simple API for creating SVG graphics using TypeScript ( or JavaScript ) .
 
 Code example: 
 
