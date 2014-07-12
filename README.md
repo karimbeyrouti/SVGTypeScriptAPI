@@ -1,7 +1,26 @@
 ========
-SVG API - JS / TypeScript
+SVG - JS / TypeScript API
 ========
-Example: http://kurst.co.uk/samples/svg/
+**Example:** http://kurst.co.uk/samples/svg/
+
+This is a simple and basic API for creating SVG graphics using TypeScript ( or JavaScript ) .
+
+Code example: 
+
+```
+this.svg = new SVGCanvas( htmlElement ); // Create an SVG element
+this.svg.width = 800;
+this.svg.height = 600;
+
+this.rect = new SVGRectangle();// Create & add Rectangle
+this.rect.width = 200;
+this.rect.height = 200;
+this.rect.x = 10;
+this.rect.y = 10;
+this.arcPath.fill( '#00ff00' );
+this.svg.append( this.rect );
+```		
+		
 
 1) install nodejs ( http://nodejs.org/ )
 
