@@ -1,4 +1,5 @@
 import SVGObjectBase        = require("./SVGObjectBase");
+import SVGGradientBase      = require("./SVGGradientBase");
 import SVGLinearGradient    = require("./SVGLinearGradient");
 
 class SVGGradientStop extends SVGObjectBase
@@ -6,11 +7,11 @@ class SVGGradientStop extends SVGObjectBase
 
 	//---------------------------------------------------------------------------------------------------------
 
-	private gradient : SVGLinearGradient;
+	private gradient_ref : SVGGradientBase;
 
 	//---------------------------------------------------------------------------------------------------------
 
-	constructor ( gradient ? : SVGLinearGradient , offset ? : string , color ? : string , opacity ? : number )
+	constructor ( gradient ? : SVGGradientBase , offset ? : string , color ? : string , opacity ? : number )
 	{
 		super();
 
@@ -18,8 +19,8 @@ class SVGGradientStop extends SVGObjectBase
 
 		if ( gradient )
 		{
-			this.gradient = gradient;
-			this.gradient.appendStop( this );
+			this.gradient_ref = gradient;
+			this.gradient_ref.appendStop( this );
 		}
 
 		this.setData( offset , color , opacity );
@@ -62,7 +63,6 @@ class SVGGradientStop extends SVGObjectBase
 	{
 		this.element.setAttribute( 'stop-opacity' , String( val ) );
 	}
-
 	public get alpha () : number
 	{
 		return parseFloat( this.element.getAttribute( 'stop-opacity' ) );
@@ -76,7 +76,6 @@ class SVGGradientStop extends SVGObjectBase
 	{
 		this.element.setAttribute( 'stop-color' , val );
 	}
-
 	public get color () : string
 	{
 		return this.element.getAttribute( 'stop-color' );
@@ -90,7 +89,6 @@ class SVGGradientStop extends SVGObjectBase
 	{
 		this.element.setAttribute( 'offset' , val );
 	}
-
 	public get offset () : string
 	{
 		return this.element.getAttribute( 'offset' );

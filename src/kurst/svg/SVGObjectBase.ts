@@ -1,6 +1,6 @@
 import Event            = require("../../kurst/events/Event");
-import EventDispatcher    = require("../../kurst/events/EventDispatcher");
-import SVGLinearGradient= require("./SVGLinearGradient");
+import EventDispatcher  = require("../../kurst/events/EventDispatcher");
+import SVGGradientBase	= require("./SVGGradientBase");
 import Point            = require("../geom/Point");
 
 class SVGObjectBase extends EventDispatcher
@@ -102,7 +102,7 @@ class SVGObjectBase extends EventDispatcher
 	 *
 	 * @param colour
 	 */
-	public set linearGradient ( grad : SVGLinearGradient )
+	public set gradient ( grad : SVGGradientBase )
 	{
 		if ( this.element )
 		{
@@ -218,6 +218,10 @@ class SVGObjectBase extends EventDispatcher
 		return this._rotation;
 	}
 
+	/**
+	 *
+	 * @returns {number}
+	 */
 	public get width () : number
 	{
 		return this.element.getBoundingClientRect().width;

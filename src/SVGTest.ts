@@ -11,9 +11,10 @@ import SVGPath          = require("./kurst/svg/SVGPath");
 import SVGArc           = require("./kurst/svg/SVGArc");
 import Color            = require("./kurst/geom/Color");
 
-
-import SVGGradientStop      = require("./kurst/svg/SVGGradientStop");
-import SVGLinearGradient    = require("./kurst/svg/SVGLinearGradient");
+import SVGGradientStop      	= require("./kurst/svg/SVGGradientStop");
+import SVGLinearGradient    	= require("./kurst/svg/SVGLinearGradient");
+import SVGRadialGradient		= require("./kurst/svg/SVGRadialGradient");
+import SVGGradientSpreadMethod	= require("./kurst/svg/SVGGradientSpreadMethod");
 import RequestAnimationFrame    = require("./kurst/utils/RequestAnimationFrame");
 
 class SVGTest extends EventDispatcher
@@ -29,6 +30,7 @@ class SVGTest extends EventDispatcher
 	private txt : SVGText;
 	private group : SVGGroup;
 	private gradient : SVGLinearGradient;
+	private rgradient : SVGRadialGradient;
 	private circle : SVGCircle;
 	private path : SVGPath;
 	private arcPath : SVGPath;
@@ -63,10 +65,19 @@ class SVGTest extends EventDispatcher
 		this.gradient.y1 = "50%";
 		this.gradient.x2 = "100%";
 		this.gradient.y2 = "50%";
-		this.gradient.spreadMethod = "pad";
+		this.gradient.spreadMethod = SVGGradientSpreadMethod.PAD;
 		this.gradient.addStop( "0%" , "#00ff00" , 1 );
 		this.gradient.addStop( "100%" , "#00b700" , 1 );
 		this.svg.appendDef( this.gradient );
+
+		//*
+		// Gradient
+		this.rgradient = new SVGRadialGradient();
+		this.rgradient.id = "gradient_rad";
+		this.rgradient.spreadMethod = SVGGradientSpreadMethod.PAD;
+		this.rgradient.addStop( "0%" , "#00ff00" , 1 );
+		this.rgradient.addStop( "100%" , "#00b700" , 1 );
+		this.svg.appendDef( this.rgradient );
 
 		// Rectangle
 		this.rect = new SVGRectangle();
@@ -74,7 +85,7 @@ class SVGTest extends EventDispatcher
 		this.rect.height = 200;
 		this.rect.x = 10;
 		this.rect.y = 10;
-		this.rect.linearGradient = this.gradient;
+		this.rect.gradient = this.rgradient;
 		this.svg.append( this.rect );
 
 		// Group
@@ -96,7 +107,7 @@ class SVGTest extends EventDispatcher
 
 		// Image
 		this.img = new SVGImage();
-		this.img.src = 'assets/icon.png';
+		this.img.src = 'assets/apps_icon.png';
 		this.img.width = 20;
 		this.img.height = 20;
 		this.img.x = 0;
@@ -131,7 +142,7 @@ class SVGTest extends EventDispatcher
 		this.circle.x = 150;
 		this.circle.y = 150;
 		this.circle.fillOpacity = .5;
-		this.circle.linearGradient = this.gradient;
+		this.circle.gradient = this.gradient;
 		this.group.append( this.circle );
 
 		// Path
@@ -140,7 +151,7 @@ class SVGTest extends EventDispatcher
 		this.path.y = -10;
 
 		// Path
-		this.path.linearGradient = this.gradient;
+		this.path.gradient = this.gradient;
 		this.path.addDrawCommand( SVGPath.moveto , 75 , 0 );
 		this.path.addDrawCommand( SVGPath.lineto , 75 , 200 );
 		this.path.addDrawCommand( SVGPath.lineto , 255 , 200 );
