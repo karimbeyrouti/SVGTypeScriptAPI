@@ -1,20 +1,20 @@
 import EventDispatcher    = require("./kurst/events/EventDispatcher");
 import Event            = require("./kurst/events/Event");
-import SVGCanvas        = require("./kurst/svg/SVGCanvas");
-import SVGRectangle     = require("./kurst/svg/SVGRectangle");
-import SVGCircle        = require("./kurst/svg/SVGCircle");
-import SVGImage         = require("./kurst/svg/SVGImage");
-import SVGPolygon       = require("./kurst/svg/SVGPolygon");
-import SVGText          = require("./kurst/svg/SVGText");
-import SVGGroup         = require("./kurst/svg/SVGGroup");
-import SVGPath          = require("./kurst/svg/SVGPath");
-import SVGArc           = require("./kurst/svg/SVGArc");
+import SVGCanvas        = require("./kurst/svg/display/SVGCanvas");
+import SVGRectangle     = require("./kurst/svg/display/SVGRectangle");
+import SVGCircle        = require("./kurst/svg/display/SVGCircle");
+import SVGImage         = require("./kurst/svg/display/SVGImage");
+import SVGPolygon       = require("./kurst/svg/display/SVGPolygon");
+import SVGText          = require("./kurst/svg/display/SVGText");
+import SVGGroup         = require("./kurst/svg/display/SVGGroup");
+import SVGPath          = require("./kurst/svg/display/SVGPath");
+import SVGArc           = require("./kurst/svg/display/SVGArc");
 import Color            = require("./kurst/geom/Color");
 
-import SVGGradientStop      	= require("./kurst/svg/SVGGradientStop");
-import SVGLinearGradient    	= require("./kurst/svg/SVGLinearGradient");
-import SVGRadialGradient		= require("./kurst/svg/SVGRadialGradient");
-import SVGGradientSpreadMethod	= require("./kurst/svg/SVGGradientSpreadMethod");
+import SVGGradientStop      	= require("./kurst/svg/gradients/SVGGradientStop");
+import SVGLinearGradient    	= require("./kurst/svg/gradients/SVGLinearGradient");
+import SVGRadialGradient		= require("./kurst/svg/gradients/SVGRadialGradient");
+import SVGGradientSpreadMethod	= require("./kurst/svg/gradients/SVGGradientSpreadMethod");
 import RequestAnimationFrame    = require("./kurst/utils/RequestAnimationFrame");
 
 class SVGTest extends EventDispatcher
@@ -107,7 +107,7 @@ class SVGTest extends EventDispatcher
 
 		// Image
 		this.img = new SVGImage();
-		this.img.src = 'assets/apps_icon.png';
+		this.img.src = 'assets/icon.png';
 		this.img.width = 20;
 		this.img.height = 20;
 		this.img.x = 0;

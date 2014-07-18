@@ -1,4 +1,4 @@
-import SVGObjectBase            = require("./SVGObjectBase");
+import SVGObjectBase            = require("./../core/SVGObjectBase");
 
 class SVGImage extends SVGObjectBase
 {

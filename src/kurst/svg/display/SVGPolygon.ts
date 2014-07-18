@@ -1,5 +1,5 @@
-import SVGObjectBase            = require("./SVGObjectBase");
-import Point            = require("../../kurst/geom/Point");
+import SVGObjectBase            = require("./../core/SVGObjectBase");
+import Point            = require("../../geom/Point");
 
 class SVGPolygon extends SVGObjectBase
 {

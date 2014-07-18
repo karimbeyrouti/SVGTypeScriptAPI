@@ -1,7 +1,7 @@
-import Event            = require("../../kurst/events/Event");
-import EventDispatcher  = require("../../kurst/events/EventDispatcher");
+import Event            = require("../../events/Event");
+import EventDispatcher  = require("../../events/EventDispatcher");
 import SVGGradientBase	= require("./SVGGradientBase");
-import Point            = require("../geom/Point");
+import Point            = require("../../geom/Point");
 
 class SVGObjectBase extends EventDispatcher
 {

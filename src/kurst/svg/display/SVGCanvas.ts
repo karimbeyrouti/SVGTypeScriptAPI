@@ -1,6 +1,6 @@
-import Event                = require("../../kurst/events/Event");
-import EventDispatcher        = require("../../kurst/events/EventDispatcher");
-import SVGObjectBase        = require("./SVGObjectBase");
+import Event                = require("../../events/Event");
+import EventDispatcher        = require("../../events/EventDispatcher");
+import SVGObjectBase        = require("./../core/SVGObjectBase");
 
 class SVGCanvas extends SVGObjectBase
 {

@@ -1,5 +1,5 @@
-import SVGObjectBase        = require("./SVGObjectBase");
-import SVGGradientBase      = require("./SVGGradientBase");
+import SVGObjectBase        = require("./../core/SVGObjectBase");
+import SVGGradientBase      = require("./../core/SVGGradientBase");
 import SVGLinearGradient    = require("./SVGLinearGradient");
 
 class SVGGradientStop extends SVGObjectBase
