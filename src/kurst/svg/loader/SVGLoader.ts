@@ -21,7 +21,7 @@ class SVGLoader extends EventDispatcher {
 	//--------------------------------------------------------------------------
 
 	public element				: SVGGroup;
-	public elements				: Array<SVGObjectBase> = new Array<SVGObjectBase>();
+	public children				: Array<SVGObjectBase> = new Array<SVGObjectBase>();
 
 	//--------------------------------------------------------------------------
 
@@ -163,7 +163,7 @@ class SVGLoader extends EventDispatcher {
 
 			if ( addToElements && ! isNestedGroup )
 			{
-				this.elements.push( svgObject );
+				this.children.push( svgObject );
 			}
 
 		}
