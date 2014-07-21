@@ -19,9 +19,17 @@ class SVGGroup extends SVGObjectBase
 	 */
 	public append ( obj : SVGObjectBase ) : void
 	{
-		this.children.push( obj );
-		obj.parentSVGObject = this;
-		this.element.appendChild( obj.element );
+		if ( ! this.isChild( obj ))
+		{
+			this.children.push( obj );
+			obj.parentSVGObject = this;
+			this.element.appendChild( obj.element );
+		}
+		else
+		{
+			this.element.appendChild( obj.element ); // move to front
+		}
+
 	}
 
 
