@@ -46,19 +46,21 @@ class SVGCanvas extends SVGObjectBase
 	 *
 	 * @param d3Object
 	 */
-	public append ( d3Object : SVGObjectBase ) : void
+	public append ( obj : SVGObjectBase ) : void
 	{
-		d3Object.draw();
-		this.svg.appendChild( d3Object.element );
+		this.children.push( obj );
+		obj.parentSVGObject = this;
+		obj.draw();
+		this.svg.appendChild( obj.element );
 	}
 
 	/**
 	 *
 	 * @param d3Object
 	 */
-	public appendDef ( d3Object : SVGObjectBase ) : void
+	public appendDef ( obj : SVGObjectBase ) : void
 	{
-		this.defs.appendChild( d3Object.element );
+		this.defs.appendChild( obj.element );
 	}
 
 	/**

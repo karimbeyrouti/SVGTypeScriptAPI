@@ -8,8 +8,10 @@ class SVGObjectBase extends EventDispatcher
 
 	//---------------------------------------------------------------------------------------------------------
 
-	public element : SVGElement;
-	public registration : Point = new Point();
+	public parentSVGObject 	: SVGObjectBase;
+	public children 		: Array<SVGObjectBase> = new Array<SVGObjectBase>();
+	public element 			: SVGElement;
+	public registration 	: Point = new Point();
 
 	//---------------------------------------------------------------------------------------------------------
 
@@ -78,6 +80,21 @@ class SVGObjectBase extends EventDispatcher
 	{
 		if ( this.element.parentNode )
 		{
+
+			var n : SVGObjectBase;
+			var l : number = this.parentSVGObject.children.length;
+
+			for ( var c : number = 0 ; c < l ; c ++ )
+			{
+				n = this.parentSVGObject.children[c];
+
+				if ( n === this )
+				{
+					this.parentSVGObject.children.splice(c , 1 );
+				}
+			}
+
+			this.parentSVGObject = null;
 			this.element.parentNode.removeChild( this.element );
 		}
 	}
@@ -114,7 +131,7 @@ class SVGObjectBase extends EventDispatcher
 	 *
 	 * @returns {number}
 	 */
-	public get parent () : Node
+	public get parentNode () : Node
 	{
 		return this.element.parentNode
 	}

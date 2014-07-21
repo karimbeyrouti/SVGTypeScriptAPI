@@ -17,9 +17,11 @@ class SVGGroup extends SVGObjectBase
 	 *
 	 * @param d3Object
 	 */
-	public append ( d3Object : SVGObjectBase ) : void
+	public append ( obj : SVGObjectBase ) : void
 	{
-		this.element.appendChild( d3Object.element );
+		this.children.push( obj );
+		obj.parentSVGObject = this;
+		this.element.appendChild( obj.element );
 	}
 
 

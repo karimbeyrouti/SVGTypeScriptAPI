@@ -11,6 +11,8 @@ import SVGPath          = require("./kurst/svg/display/SVGPath");
 import SVGArc           = require("./kurst/svg/display/SVGArc");
 import Color            = require("./kurst/geom/Color");
 
+import SVGLoader		= require("./kurst/svg/loader/SVGLoader");
+
 import SVGGradientStop      	= require("./kurst/svg/gradients/SVGGradientStop");
 import SVGLinearGradient    	= require("./kurst/svg/gradients/SVGLinearGradient");
 import SVGRadialGradient		= require("./kurst/svg/gradients/SVGRadialGradient");
@@ -36,6 +38,8 @@ class SVGTest extends EventDispatcher
 	private arcPath : SVGPath;
 	private arc : SVGArc;
 	private raf : RequestAnimationFrame;
+	private svgLoader : SVGLoader;
+	private ruby : SVGGroup;
 
 	private arcs : Array<SVGArc> = new Array<SVGArc>();
 
@@ -52,6 +56,11 @@ class SVGTest extends EventDispatcher
 		document.body.appendChild( this.container );
 		document.addEventListener( 'mousedown' , () => this.onMouseDown() );
 		window.addEventListener( 'resize' , () => this.onResize() );
+
+		this.svgLoader = new SVGLoader();
+		this.svgLoader.load( 'assets/ruby.svg');
+		this.svgLoader.addEventListener( Event.COMPLETE , ( e : Event ) => this.svgLoaded(e ));
+
 
 		this.svg = new SVGCanvas( this.container );
 		this.svg.width = 800;
@@ -165,7 +174,7 @@ class SVGTest extends EventDispatcher
 		startColor.set( '#00a8ff' );
 
 		var endColor : Color = new Color();
-		endColor.set( '#ff0066' );
+		endColor.set( '#F6EB0F' );
 
 		var l : number = 20;
 		var i : number = 1 / l;
@@ -191,14 +200,20 @@ class SVGTest extends EventDispatcher
 		this.onResize();
 	}
 
+	private svgLoaded( e : Event ) : void
+	{
+		this.svg.append( this.svgLoader.element );
+		this.ruby = this.svgLoader.element;
+		this.onResize();
+
+		console.log( this.svg );
+
+	}
 
 	private raframe () : void
 	{
-		//console.log('this.arc.rotation' , this.arc.rotation)
-		//this.arc.rotation += 1;
 
 		var l : number = this.arcs.length;
-
 
 		for ( var c : number = 0 ; c < l ; c++ )
 		{
@@ -216,17 +231,22 @@ class SVGTest extends EventDispatcher
 		//this.gradient.getStops()[0].color = "#"+((1<<24)*Math.random()|0).toString(16);
 		//this.gradient.getStops()[1].color = "#"+((1<<24)*Math.random()|0).toString(16);
 
-		/*
-		 this.arcPath.clear();
-		 if ( this.rect.parent )
+		console.log( this.rect.parentSVGObject );
+
+		if ( this.rect.parentSVGObject )
+		{
+			console.log( this.rect.parentSVGObject.children)
+		}
+
+		 if ( this.rect.parentNode )
 		 {
-		 this.rect.remove()
+		 	this.rect.remove()
 		 }
 		 else
 		 {
-		 this.svg.append( this.rect );
-		 this.svg.append( this.group ); // keep group in front
-		 }*/
+		 	this.svg.append( this.rect );
+		 	this.svg.append( this.group ); // keep group in front
+		 }
 	}
 
 	private onResize () : void
@@ -239,6 +259,12 @@ class SVGTest extends EventDispatcher
 		{
 			this.arcs[c].x = this.svg.width / 2;
 			this.arcs[c].y = this.svg.height / 2;
+		}
+
+		if ( this.ruby )
+		{
+			this.ruby.x = ( this.svg.width - this.ruby.width ) / 2;
+			this.ruby.y = ( this.svg.height - this.ruby.height ) / 2;
 		}
 
 	}
