@@ -228,25 +228,28 @@ class SVGTest extends EventDispatcher
 	private onMouseDown () : void
 	{
 
-		//this.gradient.getStops()[0].color = "#"+((1<<24)*Math.random()|0).toString(16);
-		//this.gradient.getStops()[1].color = "#"+((1<<24)*Math.random()|0).toString(16);
+		this.gradient.getStops()[0].color = "#"+((1<<24)*Math.random()|0).toString(16);
+		this.gradient.getStops()[1].color = "#"+((1<<24)*Math.random()|0).toString(16);
 
-		console.log( this.rect.parentSVGObject );
-
-		if ( this.rect.parentSVGObject )
+		if (  this.rect )
 		{
-			console.log( this.rect.parentSVGObject.children)
-		}
+			console.log( this.rect.parentSVGObject );
 
-		 if ( this.rect.parentNode )
-		 {
-		 	this.rect.remove()
-		 }
-		 else
-		 {
-		 	this.svg.append( this.rect );
-		 	this.svg.append( this.group ); // keep group in front
-		 }
+			if ( this.rect.parentSVGObject )
+			{
+				console.log( this.rect.parentSVGObject.children)
+			}
+
+			 if ( this.rect.parentNode )
+			 {
+				this.rect.remove()
+			 }
+			 else
+			 {
+				this.svg.append( this.rect );
+				this.svg.append( this.group ); // keep group in front
+			 }
+		}
 	}
 
 	private onResize () : void
