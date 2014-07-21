@@ -17,7 +17,6 @@ class SVGLoader extends EventDispatcher {
 	//--------------------------------------------------------------------------
 
 	private loader              : URLLoader;
-	private svgElement			: SVGElement;
 
 	//--------------------------------------------------------------------------
 
@@ -36,7 +35,6 @@ class SVGLoader extends EventDispatcher {
 		this.loader.addEventListener( IOErrorEvent.IO_ERROR , ( e : IOErrorEvent) => this.onIOError( e ));
 
 		this.element				= new SVGGroup();
-		this.svgElement				= this.element.element;
 
 	}
 
@@ -75,8 +73,7 @@ class SVGLoader extends EventDispatcher {
 		var parser 		: DOMParser = new DOMParser();
 		var XMLdoc 		: XMLDocument = parser.parseFromString(this.loader.data,"text/xml");//.documentElement;
 
-		this.parseSVGHtmlElement( XMLdoc.documentElement );
-
+		this.parseSVGHtmlElement( XMLdoc.documentElement.childNodes );
 		this.dispatchEvent( new Event( Event.COMPLETE));
 
 	}
@@ -87,84 +84,90 @@ class SVGLoader extends EventDispatcher {
 	 *
 	 * @param htmlElement
 	 */
-	private parseSVGHtmlElement( htmlElement : HTMLElement ) : void
+	private parseSVGHtmlElement( nodeList : NodeList , parentGroup ? : SVGGroup ) : void
 	{
-		var childNodes 	: NodeList 	= htmlElement.childNodes
-		var length 		: number 	= childNodes.length;
-		var svgObject	: SVGObjectBase;
+		var length 			: number 	= nodeList.length;
+		var svgObject		: SVGObjectBase;
+		var parent			: SVGGroup = ( parentGroup== null ) ? this.element : parentGroup;
+		var isNestedGroup	: boolean = !( parentGroup == null );
+		var addToElements	: boolean = false;
 
 		for(var c : number = 0; c < length ; c++)
 		{
-			var node : Node = childNodes.item( c ).cloneNode( true );
+			var node : Node = nodeList.item( c ).cloneNode( true );
+			addToElements = false;
 
 			switch ( node.nodeName )
 			{
 				case 'g' :
 
-					// TODO : deep clone of group nodes
-
 					svgObject = new SVGGroup();
+
+					if ( node.childNodes.length > 0 )
+						this.parseSVGHtmlElement( node.childNodes , <SVGGroup> svgObject );
+
 					svgObject.element = <SVGElement> node;
-					this.element.append( svgObject );
-					this.elements.push( svgObject );
+					parent.append( svgObject );
+					addToElements = !isNestedGroup;
 					break;
 
 				case 'rect':
 
 					svgObject = new SVGRectangle();
 					svgObject.element = <SVGElement> node;
-					this.element.append( svgObject );
-					this.elements.push( svgObject );
+					parent.append( svgObject );
+					addToElements = true;
 					break;
 
 				case 'circle':
 
 					svgObject = new SVGCircle();
 					svgObject.element = <SVGElement> node;
-					this.element.append( svgObject );
-					this.elements.push( svgObject );
+					parent.append( svgObject );
+					addToElements = true;
 					break;
 
 				case 'polygon':
 
 					svgObject = new SVGPolygon();
 					svgObject.element = <SVGElement> node;
-					this.element.append( svgObject );
-					this.elements.push( svgObject );
+					parent.append( svgObject );
+					addToElements = true;
 					break;
 
 				case 'path':
-
 					svgObject = new SVGPath();
 					svgObject.element = <SVGElement> node;
-					this.element.append( svgObject );
-					this.elements.push( svgObject );
+					parent.append( svgObject );
+					addToElements = true;
 					break;
 
 				case 'text':
 
 					svgObject = new SVGText();
 					svgObject.element = <SVGElement> node;
-					this.element.append( svgObject );
-					this.elements.push( svgObject );
-
+					parent.append( svgObject );
+					addToElements = true;
 					break;
 
-				case '#text':
-
-					// Ignore #text nodes
-
+				case '#text':// Ignore #text nodes
+					addToElements = false;
 					break;
 
-				default :
+				default :// Gradients / Animations / Definitions / ... etc;
 
-					// Gradients / Animations / Definitions / ... etc;
-
-					this.svgElement.appendChild(node);
+					addToElements = false;
+					parent.element.appendChild(node);
 					break;
 			}
 
+			if ( addToElements && ! isNestedGroup )
+			{
+				this.elements.push( svgObject );
+			}
+
 		}
+
 	}
 }
 
