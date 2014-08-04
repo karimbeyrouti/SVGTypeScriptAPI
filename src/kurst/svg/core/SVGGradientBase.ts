@@ -78,19 +78,6 @@ class SVGGradientBase extends SVGObjectBase
 	 *
 	 * @param val
 	 */
-	public set id ( val : any )
-	{
-		this.element.setAttribute( 'id' , String( val ) );
-	}
-	public get id () : any
-	{
-		return this.element.getAttribute( 'id' );
-	}
-
-	/**
-	 *
-	 * @param val
-	 */
 	public set spreadMethod ( val : any )
 	{
 		this.element.setAttribute( 'spreadMethod' , String( val ) );
