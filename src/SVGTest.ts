@@ -1,4 +1,4 @@
-import EventDispatcher    = require("./kurst/events/EventDispatcher");
+import EventDispatcher  = require("./kurst/events/EventDispatcher");
 import Event            = require("./kurst/events/Event");
 import SVGCanvas        = require("./kurst/svg/display/SVGCanvas");
 import SVGRectangle     = require("./kurst/svg/display/SVGRectangle");
@@ -10,9 +10,8 @@ import SVGGroup         = require("./kurst/svg/display/SVGGroup");
 import SVGPath          = require("./kurst/svg/display/SVGPath");
 import SVGArc           = require("./kurst/svg/display/SVGArc");
 import Color            = require("./kurst/geom/Color");
-
+import BlurFilter       = require("./kurst/svg/filters/BlurFilter");
 import SVGLoader		= require("./kurst/svg/loader/SVGLoader");
-
 import SVGGradientStop      	= require("./kurst/svg/gradients/SVGGradientStop");
 import SVGLinearGradient    	= require("./kurst/svg/gradients/SVGLinearGradient");
 import SVGRadialGradient		= require("./kurst/svg/gradients/SVGRadialGradient");
@@ -24,24 +23,25 @@ class SVGTest extends EventDispatcher
 
 	//------------------------------------------------------------------------------------------------------------------------------
 
-	private container : HTMLDivElement;
-	private svg : SVGCanvas;
-	private rect : SVGRectangle;
-	private img : SVGImage;
-	private poly : SVGPolygon;
-	private txt : SVGText;
-	private group : SVGGroup;
-	private gradient : SVGLinearGradient;
-	private rgradient : SVGRadialGradient;
-	private circle : SVGCircle;
-	private path : SVGPath;
-	private arcPath : SVGPath;
-	private arc : SVGArc;
-	private raf : RequestAnimationFrame;
-	private svgLoader : SVGLoader;
-	private ruby : SVGGroup;
-
-	private arcs : Array<SVGArc> = new Array<SVGArc>();
+	private container 	: HTMLDivElement;
+	private svg 		: SVGCanvas;
+	private rect 		: SVGRectangle;
+	private img 		: SVGImage;
+	private poly 		: SVGPolygon;
+	private txt 		: SVGText;
+	private group 		: SVGGroup;
+	private gradient 	: SVGLinearGradient;
+	private rgradient 	: SVGRadialGradient;
+	private circle 		: SVGCircle;
+	private path 		: SVGPath;
+	private arcPath 	: SVGPath;
+	private arc 		: SVGArc;
+	private raf 		: RequestAnimationFrame;
+	private svgLoader 	: SVGLoader;
+	private ruby 		: SVGGroup;
+	private blurFilter 	: BlurFilter;
+	private arcs 		: Array<SVGArc> = new Array<SVGArc>();
+	private cntr		: number = 0;
 
 	//------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,24 +49,30 @@ class SVGTest extends EventDispatcher
 	{
 		super();
 
-
+		// Request Animation
 		this.raf = new RequestAnimationFrame( this.raframe , this );
 		this.container = document.createElement( 'div' );
 
+		// Init mouse / resize handlers
 		document.body.appendChild( this.container );
 		document.addEventListener( 'mousedown' , () => this.onMouseDown() );
 		window.addEventListener( 'resize' , () => this.onResize() );
 
-		this.svgLoader = new SVGLoader();
-		this.svgLoader.load( 'assets/ruby.svg');
-		this.svgLoader.addEventListener( Event.COMPLETE , ( e : Event ) => this.svgLoaded(e ));
-
-
+		// SVG Canvas
 		this.svg = new SVGCanvas( this.container );
 		this.svg.width = 800;
 		this.svg.height = 600;
 
-		//*
+		// SVG Loader
+		this.svgLoader = new SVGLoader();
+		this.svgLoader.load( 'assets/ruby.svg');
+		this.svgLoader.addEventListener( Event.COMPLETE , ( e : Event ) => this.svgLoaded(e ));
+
+		// Blur Filter
+		this.blurFilter = new BlurFilter();
+		this.blurFilter.id = 'blurFilterTest';
+		this.svg.appendDef( this.blurFilter );
+
 		// Gradient
 		this.gradient = new SVGLinearGradient();
 		this.gradient.id = "gradient";
@@ -79,7 +85,6 @@ class SVGTest extends EventDispatcher
 		this.gradient.addStop( "100%" , "#00b700" , 1 );
 		this.svg.appendDef( this.gradient );
 
-		//*
 		// Gradient
 		this.rgradient = new SVGRadialGradient();
 		this.rgradient.id = "gradient_rad";
@@ -102,7 +107,6 @@ class SVGTest extends EventDispatcher
 		this.group.x = 20;
 		this.group.y = 20;
 		this.svg.append( this.group );
-
 
 		// Arc Path
 		this.arcPath = new SVGPath();
@@ -144,7 +148,6 @@ class SVGTest extends EventDispatcher
 		this.txt.registration.x = this.txt.width / 2;
 		this.txt.registration.y = this.txt.height / 2;
 
-
 		// Circle
 		this.circle = new SVGCircle();
 		this.circle.r = 20;
@@ -166,15 +169,14 @@ class SVGTest extends EventDispatcher
 		this.path.addDrawCommand( SVGPath.lineto , 255 , 200 );
 		this.path.addDrawCommand( SVGPath.close );
 		this.group.append( this.path );
-		//*/
+
 		this.raf.start();
 
-
 		var startColor : Color = new Color();
-		startColor.set( '#00a8ff' );
+			startColor.set( '#00a8ff' );
 
 		var endColor : Color = new Color();
-		endColor.set( '#F6EB0F' );
+			endColor.set( '#F6EB0F' );
 
 		var l : number = 20;
 		var i : number = 1 / l;
@@ -183,48 +185,58 @@ class SVGTest extends EventDispatcher
 		{
 
 			startColor.lerp( endColor , c * i );
-			var a : SVGArc = new SVGArc();
-			a.radius = 20 + ( c * 10 );
-			a.strokewidth = 11;
-			a.startAngle = 0 + ( c * 10 );
-			a.endAngle = 30 + ( c * 20 );
-			a.x = this.svg.width / 2;
-			a.y = this.svg.height / 2;
-			a.stroke = '#' + startColor.getHexString();
-			this.svg.append( a );
 
+			var a : SVGArc = new SVGArc();
+				a.radius = 20 + ( c * 10 );
+				a.strokewidth = 11;
+				a.startAngle = 0 + ( c * 10 );
+				a.endAngle = 30 + ( c * 20 );
+				a.x = this.svg.width / 2;
+				a.y = this.svg.height / 2;
+				a.stroke = '#' + startColor.getHexString();
+
+			this.svg.append( a );
 			this.arcs.push( a );
 
 		}
 
 		this.onResize();
 	}
-
+	/**
+	 *
+	 * @param e
+	 */
 	private svgLoaded( e : Event ) : void
 	{
 		this.svg.append( this.svgLoader.element );
-		this.ruby = this.svgLoader.element;
+
+		this.ruby 			= this.svgLoader.element;
+		this.ruby.filter 	= this.blurFilter;
+
 		this.onResize();
-
-		console.log( this.svg );
-
 	}
-
+	/**
+	 *
+	 */
 	private raframe () : void
 	{
+		this.cntr += 0.01;
 
+		var b : number = Math.abs( Math.sin( this.cntr ) * 5 );
+		this.blurFilter.blurY = this.blurFilter.blurX =b
 		var l : number = this.arcs.length;
 
 		for ( var c : number = 0 ; c < l ; c++ )
 		{
 			this.arcs[c].rotation += 1 + ( c * .2 );
 		}
-
-
 	}
 
 	//------------------------------------------------------------------------------------------------------------------------------
 
+	/**
+	 *
+	 */
 	private onMouseDown () : void
 	{
 
@@ -251,7 +263,9 @@ class SVGTest extends EventDispatcher
 			 }
 		}
 	}
-
+	/**
+	 *
+	 */
 	private onResize () : void
 	{
 		this.svg.width = window.innerWidth;
