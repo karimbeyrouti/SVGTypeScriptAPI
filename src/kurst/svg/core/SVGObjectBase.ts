@@ -247,6 +247,30 @@ class SVGObjectBase extends EventDispatcher
 	{
 		return this.element.getBoundingClientRect().height;
 	}
+	/**
+	 *
+	 * @param val
+	 */
+	public set id ( val : string )
+	{
+		this.element.setAttribute( 'id' , val );
+	}
+	public get id () : string
+	{
+		return this.element.getAttribute( 'id' );
+	}
+
+	/**
+	 *
+	 * @param filter
+	 */
+	public set filter ( filter : SVGObjectBase )
+	{
+		if ( this.element )
+		{
+			this.element.setAttribute( 'filter' , 'url(#' + filter.id + ')' );
+		}
+	}
 
 	//---------------------------------------------------------------------------------------------------------
 
