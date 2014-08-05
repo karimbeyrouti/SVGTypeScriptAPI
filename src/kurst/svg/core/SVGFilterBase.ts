@@ -1,6 +1,6 @@
 import SVGObjectBase            = require("./SVGObjectBase");
 
-class Filter extends SVGObjectBase
+class SVGFilterBase extends SVGObjectBase
 {
 
 	//---------------------------------------------------------------------------------------------------------
@@ -25,4 +25,4 @@ class Filter extends SVGObjectBase
 
 }
 
-export = Filter;
+export = SVGFilterBase;

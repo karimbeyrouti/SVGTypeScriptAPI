@@ -1,6 +1,6 @@
-import FilterBase            = require("./../core/FilterBase");
+import SVGFilterBase            = require("./../core/SVGFilterBase");
 
-class BlurFilter extends FilterBase
+class SVGBlurFilter extends SVGFilterBase
 {
 
 	//---------------------------------------------------------------------------------------------------------
@@ -53,4 +53,4 @@ class BlurFilter extends FilterBase
 
 }
 
-export = BlurFilter;
+export = SVGBlurFilter;

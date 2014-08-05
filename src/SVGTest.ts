@@ -10,7 +10,7 @@ import SVGGroup         = require("./kurst/svg/display/SVGGroup");
 import SVGPath          = require("./kurst/svg/display/SVGPath");
 import SVGArc           = require("./kurst/svg/display/SVGArc");
 import Color            = require("./kurst/geom/Color");
-import BlurFilter       = require("./kurst/svg/filters/BlurFilter");
+import SVGBlurFilter	= require("./kurst/svg/filters/SVGBlurFilter");
 import SVGLoader		= require("./kurst/svg/loader/SVGLoader");
 import SVGGradientStop      	= require("./kurst/svg/gradients/SVGGradientStop");
 import SVGLinearGradient    	= require("./kurst/svg/gradients/SVGLinearGradient");
@@ -39,7 +39,7 @@ class SVGTest extends EventDispatcher
 	private raf 		: RequestAnimationFrame;
 	private svgLoader 	: SVGLoader;
 	private ruby 		: SVGGroup;
-	private blurFilter 	: BlurFilter;
+	private blurFilter 	: SVGBlurFilter;
 	private arcs 		: Array<SVGArc> = new Array<SVGArc>();
 	private cntr		: number = 0;
 
@@ -69,7 +69,7 @@ class SVGTest extends EventDispatcher
 		this.svgLoader.addEventListener( Event.COMPLETE , ( e : Event ) => this.svgLoaded(e ));
 
 		// Blur Filter
-		this.blurFilter = new BlurFilter();
+		this.blurFilter = new SVGBlurFilter();
 		this.blurFilter.id = 'blurFilterTest';
 		this.svg.appendDef( this.blurFilter );
 
