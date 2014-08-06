@@ -1,6 +1,6 @@
-import SVGObjectBase            = require("./../core/SVGObjectBase");
+import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
 
-class SVGImage extends SVGObjectBase
+class SVGImage extends SVGDisplayObjectBase
 {
 
 	constructor ()

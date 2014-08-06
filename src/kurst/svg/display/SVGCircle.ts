@@ -1,6 +1,6 @@
-import SVGObjectBase    = require("./../core/SVGObjectBase");
+import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
 
-class SVGCircle extends SVGObjectBase
+class SVGCircle extends SVGDisplayObjectBase
 {
 
 	//---------------------------------------------------------------------------------------------------------

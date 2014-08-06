@@ -10,7 +10,7 @@ import SVGCircle = require("../display/SVGCircle");
 import SVGPolygon = require("../display/SVGPolygon");
 import SVGPath = require("../display/SVGPath");
 import SVGText = require("../display/SVGText");
-import SVGObjectBase = require("../core/SVGObjectBase");
+import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
 
 class SVGLoader extends EventDispatcher {
 
@@ -21,7 +21,7 @@ class SVGLoader extends EventDispatcher {
 	//--------------------------------------------------------------------------
 
 	public element				: SVGGroup;
-	public children				: Array<SVGObjectBase> = new Array<SVGObjectBase>();
+	public children				: Array<SVGDisplayObjectBase> = new Array<SVGDisplayObjectBase>();
 
 	//--------------------------------------------------------------------------
 
@@ -87,7 +87,7 @@ class SVGLoader extends EventDispatcher {
 	private parseSVGHtmlElement( nodeList : NodeList , parentGroup ? : SVGGroup ) : void
 	{
 		var length 			: number 	= nodeList.length;
-		var svgObject		: SVGObjectBase;
+		var svgObject		: SVGDisplayObjectBase;
 		var parent			: SVGGroup = ( parentGroup== null ) ? this.element : parentGroup;
 		var isNestedGroup	: boolean = !( parentGroup == null );
 		var addToElements	: boolean = false;

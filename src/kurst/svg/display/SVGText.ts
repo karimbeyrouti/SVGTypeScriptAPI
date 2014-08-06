@@ -1,6 +1,6 @@
-import SVGObjectBase            = require("./../core/SVGObjectBase");
+import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
 
-class SVGText extends SVGObjectBase
+class SVGText extends SVGDisplayObjectBase
 {
 
 	//---------------------------------------------------------------------------------------------------------

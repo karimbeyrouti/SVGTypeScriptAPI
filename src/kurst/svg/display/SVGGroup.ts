@@ -1,6 +1,6 @@
-import SVGObjectBase            = require("./../core/SVGObjectBase");
+import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
 
-class SVGGroup extends SVGObjectBase
+class SVGGroup extends SVGDisplayObjectBase
 {
 
 	//---------------------------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ class SVGGroup extends SVGObjectBase
 	 *
 	 * @param d3Object
 	 */
-	public append ( obj : SVGObjectBase ) : void
+	public append ( obj : SVGDisplayObjectBase ) : void
 	{
 		if ( ! this.isChild( obj ))
 		{

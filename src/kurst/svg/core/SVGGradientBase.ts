@@ -25,7 +25,6 @@ class SVGGradientBase extends SVGObjectBase
 	{
 		this.element.appendChild( stop.element );
 	}
-
 	/**
 	 *
 	 * @param offset
@@ -48,7 +47,6 @@ class SVGGradientBase extends SVGObjectBase
 	{
 		return this.stops;
 	}
-
 	/**
 	 *
 	 * @param id
@@ -61,7 +59,6 @@ class SVGGradientBase extends SVGObjectBase
 			return this.stops[id];
 		}
 	}
-
 	/**
 	 *
 	 * @param val
@@ -73,7 +70,6 @@ class SVGGradientBase extends SVGObjectBase
 			this.stops[c].alpha = val;
 		}
 	}
-
 	/**
 	 *
 	 * @param val
@@ -86,6 +82,9 @@ class SVGGradientBase extends SVGObjectBase
 	{
 		return this.element.getAttribute( 'spreadMethod' );
 	}
+
+	//---------------------------------------------------------------------------------------------------------
+
 
 }
 

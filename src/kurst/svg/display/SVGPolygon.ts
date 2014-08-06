@@ -1,7 +1,7 @@
-import SVGObjectBase            = require("./../core/SVGObjectBase");
+import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
 import Point            = require("../../geom/Point");
 
-class SVGPolygon extends SVGObjectBase
+class SVGPolygon extends SVGDisplayObjectBase
 {
 
 	//---------------------------------------------------------------------------------------------------------

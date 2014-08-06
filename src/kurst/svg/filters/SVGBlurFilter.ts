@@ -16,7 +16,7 @@ class SVGBlurFilter extends SVGFilterBase
 
 		this.feGaussianBlur = <SVGFEGaussianBlurElement> this.createSVGElement( 'feGaussianBlur' );
 		this.feGaussianBlur.setStdDeviation( this._blurX , this._blurY );
-		this.append( this.feGaussianBlur );
+		this.appendFilter( this.feGaussianBlur );
 	}
 
 	//---------------------------------------------------------------------------------------------------------
