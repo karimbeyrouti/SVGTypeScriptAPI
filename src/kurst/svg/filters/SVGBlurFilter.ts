@@ -29,13 +29,11 @@ class SVGBlurFilter extends SVGFilterBase
 	{
 		return  this._blurX;
 	}
-
 	public set blurX ( val : number )
 	{
 		this._blurX = val;
 		this.feGaussianBlur.setStdDeviation( this._blurX , this._blurY );
 	}
-
 	/**
 	 *
 	 */
@@ -43,14 +41,11 @@ class SVGBlurFilter extends SVGFilterBase
 	{
 		return  this._blurY;
 	}
-
 	public set blurY ( val : number )
 	{
 		this._blurY = val;
 		this.feGaussianBlur.setStdDeviation( this._blurX , this._blurY );
 	}
-
-
 }
 
 export = SVGBlurFilter;

@@ -23,12 +23,10 @@ class SVGLinearGradient extends SVGGradientBase
 	{
 		this.element.setAttribute( 'x1' , String( val ) );
 	}
-
 	public get x1 () : any
 	{
 		return this.element.getAttribute( 'x1' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -37,12 +35,10 @@ class SVGLinearGradient extends SVGGradientBase
 	{
 		this.element.setAttribute( 'y1' , String( val ) );
 	}
-
 	public get y1 () : any
 	{
 		return this.element.getAttribute( 'y1' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -51,12 +47,10 @@ class SVGLinearGradient extends SVGGradientBase
 	{
 		this.element.setAttribute( 'x2' , String( val ) );
 	}
-
 	public get x2 () : any
 	{
 		return this.element.getAttribute( 'x2' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -65,7 +59,6 @@ class SVGLinearGradient extends SVGGradientBase
 	{
 		this.element.setAttribute( 'y2' , String( val ) );
 	}
-
 	public get y2 () : any
 	{
 		return this.element.getAttribute( 'y2' );

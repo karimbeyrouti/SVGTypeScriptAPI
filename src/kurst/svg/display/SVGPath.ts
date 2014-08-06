@@ -1,22 +1,22 @@
-import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
-import SVGPathCommandDef        = require("./../data/SVGPathCommandDef");
-import SVGPathCommand            = require("./../data/SVGPathCommand");
+import SVGDisplayObjectBase	= require("./../core/SVGDisplayObjectBase");
+import SVGPathCommandDef    = require("./../data/SVGPathCommandDef");
+import SVGPathCommand       = require("./../data/SVGPathCommand");
 
 class SVGPath extends SVGDisplayObjectBase
 {
 
 	//---------------------------------------------------------------------------------------------------------
 
-	public static moveto : SVGPathCommandDef = new SVGPathCommandDef( 'M' , 'Move To' );
-	public static lineto : SVGPathCommandDef = new SVGPathCommandDef( 'L' , 'Line To' );
-	public static hlineto : SVGPathCommandDef = new SVGPathCommandDef( 'H' , 'Horizontal Lineto' );
-	public static vlineto : SVGPathCommandDef = new SVGPathCommandDef( 'V' , 'Vertical Lineto' );
-	public static curveto : SVGPathCommandDef = new SVGPathCommandDef( 'C' , 'Curve To' );
-	public static smoothcurveto : SVGPathCommandDef = new SVGPathCommandDef( 'S' , 'Smooth Curveto' );
-	public static quadratic : SVGPathCommandDef = new SVGPathCommandDef( 'Q' , 'Quadratic Bézier Curve' );
-	public static smoothquadratic : SVGPathCommandDef = new SVGPathCommandDef( 'T' , 'Smooth Quadratic Bézier Curve' );
-	public static arc : SVGPathCommandDef = new SVGPathCommandDef( 'A' , 'Elliptical Arc' );
-	public static close : SVGPathCommandDef = new SVGPathCommandDef( 'Z' , 'Close Path' );
+	public static moveto 			: SVGPathCommandDef = new SVGPathCommandDef( 'M' , 'Move To' );
+	public static lineto 			: SVGPathCommandDef = new SVGPathCommandDef( 'L' , 'Line To' );
+	public static hlineto			: SVGPathCommandDef = new SVGPathCommandDef( 'H' , 'Horizontal Lineto' );
+	public static vlineto 			: SVGPathCommandDef = new SVGPathCommandDef( 'V' , 'Vertical Lineto' );
+	public static curveto 			: SVGPathCommandDef = new SVGPathCommandDef( 'C' , 'Curve To' );
+	public static smoothcurveto 	: SVGPathCommandDef = new SVGPathCommandDef( 'S' , 'Smooth Curveto' );
+	public static quadratic 		: SVGPathCommandDef = new SVGPathCommandDef( 'Q' , 'Quadratic Bézier Curve' );
+	public static smoothquadratic 	: SVGPathCommandDef = new SVGPathCommandDef( 'T' , 'Smooth Quadratic Bézier Curve' );
+	public static arc 				: SVGPathCommandDef = new SVGPathCommandDef( 'A' , 'Elliptical Arc' );
+	public static close 			: SVGPathCommandDef = new SVGPathCommandDef( 'Z' , 'Close Path' );
 
 	//---------------------------------------------------------------------------------------------------------
 
@@ -56,7 +56,6 @@ class SVGPath extends SVGDisplayObjectBase
 			this.draw();
 		}
 	}
-
 	/**
 	 *
 	 */
@@ -65,7 +64,6 @@ class SVGPath extends SVGDisplayObjectBase
 		this.commands.length = 0;
 		this.draw();
 	}
-
 	/**
 	 *
 	 */

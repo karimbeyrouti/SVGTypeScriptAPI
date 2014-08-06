@@ -21,12 +21,10 @@ class SVGCircle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'r' , String( val ) );
 	}
-
 	public get r () : number
 	{
 		return parseFloat( this.element.getAttribute( 'r' ) );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -35,12 +33,10 @@ class SVGCircle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'width' , String( val ) );
 	}
-
 	public get width () : any
 	{
 		return this.element.getAttribute( 'width' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -49,12 +45,10 @@ class SVGCircle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'height' , String( val ) );
 	}
-
 	public get height () : any
 	{
 		return this.element.getAttribute( 'height' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -63,12 +57,10 @@ class SVGCircle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'cy' , String( val ) );
 	}
-
 	public get cy () : number
 	{
 		return parseFloat( this.element.getAttribute( 'cy' ) );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -77,7 +69,6 @@ class SVGCircle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'cx' , String( val ) );
 	}
-
 	public get cx () : number
 	{
 		return parseFloat( this.element.getAttribute( 'cx' ) );

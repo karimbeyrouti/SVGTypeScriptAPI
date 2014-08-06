@@ -20,22 +20,21 @@ class SVGFilterBase extends SVGObjectBase
 
 	/**
 	 *
-	 * @param d3Object
+	 * @param SVGFilterPrimitive
 	 */
-	public appendFilter ( obj : SVGElement ) : void
+	public appendFilter ( SVGFilterPrimitive : SVGElement ) : void
 	{
-		if ( ! this.containsFilter( obj ))
+		if ( ! this.containsFilter( SVGFilterPrimitive ))
 		{
-			this.filters.push( obj );
-			this.element.appendChild( obj );
+			this.filters.push( SVGFilterPrimitive );
+			this.element.appendChild( SVGFilterPrimitive );
 		}
 	}
 	/**
 	 *
-	 * @param obj
-	 * @returns {boolean}
+	 * @param SVGFilterPrimitive
 	 */
-	public containsFilter( obj : SVGElement ) : boolean
+	public containsFilter( SVGFilterPrimitive : SVGElement ) : boolean
 	{
 		var l : number = this.filters.length;
 		var o : SVGElement;
@@ -43,7 +42,7 @@ class SVGFilterBase extends SVGObjectBase
 		{
 			o = this.filters[c];
 
-			if ( o === obj )
+			if ( o === SVGFilterPrimitive )
 			{
 				return true;
 			}
@@ -53,13 +52,13 @@ class SVGFilterBase extends SVGObjectBase
 	}
 	/**
 	 *
-	 * @param obj
+	 * @param SVGFilterPrimitive
 	 */
-	public removeFilter( obj : SVGElement ) : void
+	public removeFilter( SVGFilterPrimitive : SVGElement ) : void
 	{
-		if ( this.containsFilter( obj ))
+		if ( this.containsFilter( SVGFilterPrimitive ))
 		{
-			this.element.removeChild( obj );
+			this.element.removeChild( SVGFilterPrimitive );
 
 			var n : SVGElement;
 			var l : number = this.filters.length;
@@ -68,7 +67,7 @@ class SVGFilterBase extends SVGObjectBase
 			{
 				n = this.filters[c];
 
-				if ( n == obj )
+				if ( n == SVGFilterPrimitive )
 				{
 					this.filters.splice(c , 1 );
 				}

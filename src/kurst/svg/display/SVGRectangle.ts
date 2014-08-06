@@ -27,12 +27,10 @@ class SVGRectangle extends SVGDisplayObjectBase
 		this._widthP = val;
 		this.width = String( val ) + '%';
 	}
-
 	public get widthp () : number
 	{
 		return this._widthP;
 	}
-
 	/**
 	 *
 	 * @param val
@@ -42,12 +40,10 @@ class SVGRectangle extends SVGDisplayObjectBase
 		this._heightP = val;
 		this.height = String( val ) + '%';
 	}
-
 	public get heightp () : number
 	{
 		return this._heightP;
 	}
-
 	/**
 	 *
 	 * @param val
@@ -56,12 +52,10 @@ class SVGRectangle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'width' , String( val ) );
 	}
-
 	public get width () : any
 	{
 		return this.element.getAttribute( 'width' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -70,12 +64,10 @@ class SVGRectangle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'height' , String( val ) );
 	}
-
 	public get height () : any
 	{
 		return this.element.getAttribute( 'height' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -84,12 +76,10 @@ class SVGRectangle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'ry' , String( val ) );
 	}
-
 	public get ry () : number
 	{
 		return parseFloat( this.element.getAttribute( 'ry' ) );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -98,7 +88,6 @@ class SVGRectangle extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'rx' , String( val ) );
 	}
-
 	public get rx () : number
 	{
 		return parseFloat( this.element.getAttribute( 'rx' ) );

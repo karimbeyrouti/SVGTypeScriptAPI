@@ -67,7 +67,6 @@ class SVGGradientStop extends SVGObjectBase
 	{
 		return parseFloat( this.element.getAttribute( 'stop-opacity' ) );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -80,7 +79,6 @@ class SVGGradientStop extends SVGObjectBase
 	{
 		return this.element.getAttribute( 'stop-color' );
 	}
-
 	/**
 	 *
 	 * @param val

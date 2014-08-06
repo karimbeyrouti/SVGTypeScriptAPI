@@ -1,6 +1,6 @@
-import Event                = require("../../events/Event");
-import EventDispatcher        = require("../../events/EventDispatcher");
-import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
+import Event                	= require("../../events/Event");
+import EventDispatcher        	= require("../../events/EventDispatcher");
+import SVGDisplayObjectBase     = require("./../core/SVGDisplayObjectBase");
 
 class SVGCanvas extends SVGDisplayObjectBase
 {
@@ -36,12 +36,10 @@ class SVGCanvas extends SVGDisplayObjectBase
 	{
 		return  parseFloat( this.svg.getAttribute( 'fill-opacity' ) );
 	}
-
 	public set alpha ( val : number )
 	{
 		this.svg.setAttribute( 'fill-opacity' , String( val ) );
 	}
-
 	/**
 	 *
 	 * @param d3Object
@@ -67,7 +65,6 @@ class SVGCanvas extends SVGDisplayObjectBase
 	{
 		this.defs.appendChild( obj.element );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -76,12 +73,10 @@ class SVGCanvas extends SVGDisplayObjectBase
 	{
 		this.svg.setAttribute( 'width' , String( val ) );
 	}
-
 	public get width () : any
 	{
 		return this.svg.getAttribute( 'width' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -90,7 +85,6 @@ class SVGCanvas extends SVGDisplayObjectBase
 	{
 		this.svg.setAttribute( 'height' , String( val ) );
 	}
-
 	public get height () : any
 	{
 		return this.svg.getAttribute( 'height' );

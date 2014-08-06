@@ -10,7 +10,7 @@ import SVGCircle = require("../display/SVGCircle");
 import SVGPolygon = require("../display/SVGPolygon");
 import SVGPath = require("../display/SVGPath");
 import SVGText = require("../display/SVGText");
-import SVGDisplayObjectBase            = require("./../core/SVGDisplayObjectBase");
+import SVGDisplayObjectBase = require("./../core/SVGDisplayObjectBase");
 
 class SVGLoader extends EventDispatcher {
 

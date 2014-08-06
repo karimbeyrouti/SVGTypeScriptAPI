@@ -53,7 +53,6 @@ class SVGDisplayObjectBase extends SVGObjectBase
 			this.element.setAttribute( 'fill' , colour );
 		}
 	}
-
 	/**
 	 *
 	 */

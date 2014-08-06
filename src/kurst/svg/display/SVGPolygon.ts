@@ -26,12 +26,10 @@ class SVGPolygon extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'stroke' , String( val ) );
 	}
-
 	public get stroke () : any
 	{
 		return this.element.getAttribute( 'stroke' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -40,12 +38,10 @@ class SVGPolygon extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'stroke-width' , String( val ) );
 	}
-
 	public get strokewidth () : number
 	{
 		return parseFloat( this.element.getAttribute( 'stroke-width' ) );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -54,12 +50,10 @@ class SVGPolygon extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'width' , String( val ) );
 	}
-
 	public get width () : any
 	{
 		return this.element.getAttribute( 'width' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -68,7 +62,6 @@ class SVGPolygon extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'height' , String( val ) );
 	}
-
 	public get height () : any
 	{
 		return this.element.getAttribute( 'height' );
@@ -86,7 +79,6 @@ class SVGPolygon extends SVGDisplayObjectBase
 		this.points.push( new Point( x , y ) );
 		this.updatePoly();
 	}
-
 	/**
 	 *
 	 */

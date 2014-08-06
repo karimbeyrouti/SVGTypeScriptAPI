@@ -41,6 +41,15 @@ class SVGArc extends SVGPath
 
 	//---------------------------------------------------------------------------------------------------------
 
+	/**
+	 *
+	 * @param centerX
+	 * @param centerY
+	 * @param radius
+	 * @param angleInDegrees
+	 * @param point
+	 * @returns {Point}
+	 */
 	private polarToCartesian ( centerX : number , centerY : number , radius : number , angleInDegrees : number , point ? : Point ) : Point
 	{
 		var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
@@ -55,7 +64,14 @@ class SVGArc extends SVGPath
 
 		return new Point( centerX + (radius * Math.cos( angleInRadians )) , centerY + (radius * Math.sin( angleInRadians )) );
 	}
-
+	/**
+	 *
+	 * @param x
+	 * @param y
+	 * @param radius
+	 * @param startAngle
+	 * @param endAngle
+	 */
 	private updateArc ( x : number , y : number , radius : number , startAngle : number , endAngle : number )
 	{
 
@@ -75,7 +91,6 @@ class SVGArc extends SVGPath
 		this.commands[1].params[6] = this.endPoint.y;
 
 	}
-
 	/**
 	 *
 	 */
@@ -84,7 +99,6 @@ class SVGArc extends SVGPath
 		this.updateArc( this.x , this.y , this._radius , this.startAngle , this.endAngle );
 		super.draw();
 	}
-
 	/**
 	 *
 	 */
@@ -93,7 +107,6 @@ class SVGArc extends SVGPath
 		this.draw();
 		this.element.setAttribute( "transform" , "rotate(" + this.rotation + "," + (this.x + this.registration.x ) + ", " + (this.y + this.registration.y ) + ")" );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -103,12 +116,10 @@ class SVGArc extends SVGPath
 		this._startAngle = val;
 		this.draw();
 	}
-
 	public get startAngle () : number
 	{
 		return this._startAngle;
 	}
-
 	/**
 	 *
 	 * @param val
@@ -118,12 +129,10 @@ class SVGArc extends SVGPath
 		this._endAngle = val;
 		this.draw();
 	}
-
 	public get endAngle () : number
 	{
 		return this._endAngle;
 	}
-
 	/**
 	 *
 	 * @param val
@@ -133,7 +142,6 @@ class SVGArc extends SVGPath
 		this._radius = val;
 		this.draw();
 	}
-
 	public get radius () : number
 	{
 		return this._radius;

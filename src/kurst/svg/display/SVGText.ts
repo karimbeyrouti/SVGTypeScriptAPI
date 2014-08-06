@@ -10,8 +10,6 @@ class SVGText extends SVGDisplayObjectBase
 		super();
 		this.initElement( 'text' );
 		this.element.setAttribute( "pointer-events" , "all" )
-
-
 	}
 
 	//---------------------------------------------------------------------------------------------------------
@@ -24,12 +22,10 @@ class SVGText extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'font-family' , val );
 	}
-
 	public get font () : string
 	{
 		return this.element.getAttribute( 'font-family' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -38,13 +34,10 @@ class SVGText extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'font-size' , val );
 	}
-
 	public get fontsize () : string
 	{
 		return this.element.getAttribute( 'font-size' );
 	}
-
-
 	/**
 	 *
 	 * @param val
@@ -53,7 +46,6 @@ class SVGText extends SVGDisplayObjectBase
 	{
 		this.element.textContent = val;
 	}
-
 	public get text () : string
 	{
 		return this.element.textContent;

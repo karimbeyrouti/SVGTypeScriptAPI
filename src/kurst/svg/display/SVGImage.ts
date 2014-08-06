@@ -19,12 +19,10 @@ class SVGImage extends SVGDisplayObjectBase
 	{
 		this.element.setAttributeNS( 'http://www.w3.org/1999/xlink' , 'href' , val );
 	}
-
 	public get src () : string
 	{
 		return this.element.getAttributeNS( 'http://www.w3.org/1999/xlink' , 'href' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -33,12 +31,10 @@ class SVGImage extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'width' , String( val ) );
 	}
-
 	public get width () : any
 	{
 		return this.element.getAttribute( 'width' );
 	}
-
 	/**
 	 *
 	 * @param val
@@ -47,12 +43,10 @@ class SVGImage extends SVGDisplayObjectBase
 	{
 		this.element.setAttribute( 'height' , String( val ) );
 	}
-
 	public get height () : any
 	{
 		return this.element.getAttribute( 'height' );
 	}
-
 	/**
 	 *
 	 */
@@ -60,7 +54,6 @@ class SVGImage extends SVGDisplayObjectBase
 	{
 		return  parseFloat( this.element.getAttribute( 'opacity' ) );
 	}
-
 	public set alpha ( val : number )
 	{
 		this.element.setAttribute( 'opacity' , String( val ) );
