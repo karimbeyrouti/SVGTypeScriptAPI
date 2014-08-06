@@ -1,6 +1,7 @@
 import Event                	= require("../../events/Event");
 import EventDispatcher        	= require("../../events/EventDispatcher");
 import SVGDisplayObjectBase     = require("./../core/SVGDisplayObjectBase");
+import SVGObjectBase			= require("./../core/SVGObjectBase");
 
 class SVGCanvas extends SVGDisplayObjectBase
 {
@@ -61,7 +62,7 @@ class SVGCanvas extends SVGDisplayObjectBase
 	 *
 	 * @param d3Object
 	 */
-	public appendDef ( obj : SVGDisplayObjectBase ) : void
+	public appendDef ( obj : SVGObjectBase ) : void
 	{
 		this.defs.appendChild( obj.element );
 	}
