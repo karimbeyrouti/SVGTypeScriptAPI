@@ -33,7 +33,7 @@ class SVGFFTTest extends EventDispatcher
 	private rects 				: Array<SVGRectangle> = new Array<SVGRectangle>();
 	private userMediaManager 	: UserMediaManager;
 	private audioContextManager : AudioContextManager;
-	private numBars				: number = 256;
+	private numBars				: number = 128;
 	private background			: SVGRectangle;
 
 	//------------------------------------------------------------------------------------------------------------------------------
@@ -123,8 +123,8 @@ class SVGFFTTest extends EventDispatcher
 		for ( var c : number = 0 ; c < this.rects.length ; c ++ )
 		{
 			var rect : SVGRectangle = this.rects[c];
-			rect.width  =  ( window.innerWidth) / this.numBars;
-			rect.x      = ( rect.width * c ) + ( c * 3 );
+				rect.width  =  ( window.innerWidth) / this.numBars;
+				rect.x      = ( rect.width * c ) + ( c * 3 );
 		}
 	}
 
