@@ -39,6 +39,23 @@ module.exports = function(grunt) {
 					    mangle: true
 				    }
 			    }
+		    },
+		    svgFFTTest: {
+			    options: {
+
+				    baseUrl: "bin/js/",
+				    mainConfigFile: "bin/js/config.js",
+				    name: "SVGFFTTestStartup",
+				    out: "release/js/SVGFFTTest.js",
+				    optimize:'none',
+				    uglify2: {
+					    compress: {
+						    sequences: true
+					    },
+					    warnings: false,
+					    mangle: true
+				    }
+			    }
 		    }
 	    },
 	    replace: {
