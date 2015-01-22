@@ -44,42 +44,49 @@ class SVGFFTTest extends EventDispatcher
 
 		// Request Animation
 		this.raf = new RequestAnimationFrame( this.raframe , this );
-		this.container = document.createElement( 'div' );
 
 		// SVG Canvas
+		this.container = document.createElement( 'div' );
 		this.svg = new SVGCanvas( this.container );
 		this.svg.width = 800;
 		this.svg.height = 600;
 
+		// Create background
 		this.background = new SVGRectangle();
 		this.background.fill( '#000000');
 		this.svg.append( this.background );
 
+		// Get user media / Mic
 		this.userMediaManager  = new UserMediaManager();
 		this.userMediaManager.getMicrophoneStream();
 		this.userMediaManager.addEventListener( UserMediaManagerEvent.MIC_INITIALIZED , ( e : UserMediaManagerEvent ) => this.onMicInitialized( e ) );
-		//this.userMediaManager.mediaEventStream.listen( (String message) => onMicrophoneInitialized(message) );
 
+		// Create FFT Rects
 		for ( var c : number = 0 ; c < this.numBars ; c ++ )
 		{
 			var rect = new SVGRectangle();
 				rect.fill( '#ffffff' );
-				rect.width  =  ( window.innerWidth - this.numBars ) / this.numBars;
 				rect.height = 10;
-				rect.x      = ( rect.width + 3 ) * c ;
+				rect.width  =  ( window.innerWidth) / this.numBars;
+				rect.x      = ( rect.width * c ) + ( c * 3 );
+				rect.y      = ( this.background.height / 2 ) - ( rect.height / 2 );
 
 			this.svg.append( rect );
 			this.rects.push( rect );
 
 		}
 
+		// Add SVG container to the document
 		document.body.appendChild( this.container );
-		//this.raf.start();
 
+		// resize handler
 		window.addEventListener( 'resize' , () => this.onResize() );
 		this.onResize();
 	}
-
+	/**
+	 * Callback for microphone intialised
+	 * @param e
+	 */
 	private onMicInitialized( e : UserMediaManagerEvent ) : void
 	{
 		this.audioContextManager = new AudioContextManager();
@@ -88,42 +95,39 @@ class SVGFFTTest extends EventDispatcher
 		this.raf.start();
 	}
 	/**
-	 *
+	 * Request Animation FRame
 	 */
 	private raframe () : void
 	{
-
 		this.audioContextManager.updateFrequencyData();
 
 		for (var i : number = 0; i < this.numBars; ++i)
 		{
-			var magnitude : number = this.audioContextManager.getBin( i , this.numBars , true );
-			var rect   	: SVGRectangle = this.rects[ i ];
+			var magnitude : number 		= this.audioContextManager.getBin( i , this.numBars , true );
 
-				rect.height         =  ( window.innerHeight) * magnitude;
-				rect.y              = ( this.background.height / 2 ) - ( rect.height / 2 );
+			var rect   	: SVGRectangle 	= this.rects[ i ];
+				rect.height         	=  ( window.innerHeight) * magnitude;
+				rect.y              	= ( this.background.height / 2 ) - ( rect.height / 2 );
 
 		}
 
 	}
-
-	//------------------------------------------------------------------------------------------------------------------------------
-
 	/**
-	 *
+	 * Resize Event Handler
 	 */
 	private onResize () : void
 	{
-		this.background.width = this.svg.width = window.innerWidth;
-		this.background.height = this.svg.height = window.innerHeight;
+		this.background.width 	= this.svg.width = window.innerWidth;
+		this.background.height 	= this.svg.height = window.innerHeight;
 
 		for ( var c : number = 0 ; c < this.rects.length ; c ++ )
 		{
 			var rect : SVGRectangle = this.rects[c];
 			rect.width  =  ( window.innerWidth) / this.numBars;
-			rect.x      = ( rect.width + 3 ) * c ;
+			rect.x      = ( rect.width * c ) + ( c * 3 );
 		}
 	}
+
 
 }
 
