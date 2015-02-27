@@ -17,6 +17,7 @@ class SVGLoader extends EventDispatcher {
 	//--------------------------------------------------------------------------
 
 	private loader              : URLLoader;
+    private _url                : string;
 
 	//--------------------------------------------------------------------------
 
@@ -46,12 +47,18 @@ class SVGLoader extends EventDispatcher {
 	 */
 	public load( uri : string ) : void
 	{
-
-		var req = new URLRequest( uri );
-
-		this.loader.load( req );
-
+		this.loader.load( new URLRequest( uri ) );
+        this._url = uri;
 	}
+
+    /**
+     *
+     * @returns {string}
+     */
+    public get url () : string
+    {
+        return this._url;
+    }
 
 	// Event Handlers
 

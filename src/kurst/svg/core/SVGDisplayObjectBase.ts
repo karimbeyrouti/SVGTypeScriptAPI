@@ -18,6 +18,8 @@ class SVGDisplayObjectBase extends SVGObjectBase
 	private _x : number = 0;
 	private _y : number = 0;
 	private _rotation : number = 0;
+    private _scaleX : number = 1;
+    private _scaleY : number = 1;
 
 	//---------------------------------------------------------------------------------------------------------
 
@@ -33,7 +35,8 @@ class SVGDisplayObjectBase extends SVGObjectBase
 	 */
 	public updateTransform () : void
 	{
-		this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" );
+        //this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" );
+        this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" + " scale(" + this._scaleX + "," + this._scaleY + ")");
 	}
 	/**
 	 *
@@ -193,19 +196,45 @@ class SVGDisplayObjectBase extends SVGObjectBase
 	{
 		return this._x;
 	}
-	/**
-	 *
-	 * @param val
-	 */
-	public set y ( val : any )
-	{
-		this._y = val;
-		this.updateTransform();
-	}
-	public get y () : any
-	{
-		return this._y;
-	}
+    /**
+     *
+     * @param val
+     */
+    public set y ( val : any )
+    {
+        this._y = val;
+        this.updateTransform();
+    }
+    public get y () : any
+    {
+        return this._y;
+    }
+    /**
+     *
+     * @param val
+     */
+    public set scaleX ( val : any )
+    {
+        this._scaleX = val;
+        this.updateTransform();
+    }
+    public get scaleX () : any
+    {
+        return this._scaleX;
+    }
+    /**
+     *
+     * @param val
+     */
+    public set scaleY ( val : any )
+    {
+        this._scaleY = val;
+        this.updateTransform();
+    }
+    public get scaleY () : any
+    {
+        return this._scaleY;
+    }
 	/**
 	 *
 	 * @param val

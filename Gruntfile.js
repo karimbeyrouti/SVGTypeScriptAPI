@@ -56,6 +56,23 @@ module.exports = function(grunt) {
 					    mangle: true
 				    }
 			    }
+		    },
+		    svgLoadersTest: {
+			    options: {
+
+				    baseUrl: "bin/js/",
+				    mainConfigFile: "bin/js/config.js",
+				    name: "SVGLoadersTestStartup",
+				    out: "release/js/SVGLoadersTest.js",
+				    optimize:'none',
+				    uglify2: {
+					    compress: {
+						    sequences: true
+					    },
+					    warnings: false,
+					    mangle: true
+				    }
+			    }
 		    }
 	    },
 	    replace: {
