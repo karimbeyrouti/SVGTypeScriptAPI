@@ -15,12 +15,12 @@ class SVGArc extends SVGPath
 
 	//---------------------------------------------------------------------------------------------------------
 
-	private startPoint : Point = new Point();
-	private endPoint : Point = new Point();
-	private _radius : number = 10;
-	private arcSweep : number = 0;
+	private startPoint  : Point = new Point();
+	private endPoint    : Point = new Point();
+	private _radius     : number = 10;
+	private arcSweep    : number = 0;
 	private _startAngle : number = 0;
-	private _endAngle : number = 359.99;
+	private _endAngle   : number = 359.99;
 
 	//---------------------------------------------------------------------------------------------------------
 
@@ -98,6 +98,7 @@ class SVGArc extends SVGPath
 	{
 		this.updateArc( this.x , this.y , this._radius , this.startAngle , this.endAngle );
 		super.draw();
+		//this.markForUpdate();
 	}
 	/**
 	 *
@@ -105,7 +106,9 @@ class SVGArc extends SVGPath
 	public updateTransform () : void
 	{
 		this.draw();
-		this.element.setAttribute( "transform" , "rotate(" + this.rotation + "," + (this.x + this.registration.x ) + ", " + (this.y + this.registration.y ) + ")" );
+		this.element.setAttribute( "transform" , "rotate(" + this.rotation + "," + (this.x + this.registration.x ) + ", " + (this.y + this.registration.y ) + ")" + " scale(" + this.scaleX + "," + this.scaleY+ ")");
+		this.markAsUpdated();
+		//this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" + " scale(" + this._scaleX + "," + this._scaleY + ")");
 	}
 	/**
 	 *

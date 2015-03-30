@@ -3,10 +3,16 @@ import EventDispatcher  = require("../../events/EventDispatcher");
 import SVGGradientBase	= require("./SVGGradientBase");
 import Point            = require("../../geom/Point");
 import SVGObjectBase	= require("./SVGObjectBase");
+import DisplayObjectManager	= require("./DisplayObjectManager");
 
 class SVGDisplayObjectBase extends SVGObjectBase
 {
 
+
+	//---------------------------------------------------------------------------------------------------------
+
+	public static displayObjectManager  : DisplayObjectManager;
+	public static __IIDCounter         : number = 0;
 	//---------------------------------------------------------------------------------------------------------
 
 	public parentSVGObject 	: SVGDisplayObjectBase;
@@ -15,17 +21,27 @@ class SVGDisplayObjectBase extends SVGObjectBase
 
 	//---------------------------------------------------------------------------------------------------------
 
-	private _x : number = 0;
-	private _y : number = 0;
-	private _rotation : number = 0;
-    private _scaleX : number = 1;
-    private _scaleY : number = 1;
+	public __ID                 : number = 0;
+	private _x                  : number = 0;
+	private _y                  : number = 0;
+	private _rotation           : number = 0;
+    private _scaleX             : number = 1;
+    private _scaleY             : number = 1;
+	private _flagForUpdate      : boolean = false;
+	private _defferUpdates      : boolean = false;
 
 	//---------------------------------------------------------------------------------------------------------
 
 	constructor ()
 	{
 		super();
+
+		this.__ID = ++ SVGDisplayObjectBase.__IIDCounter ;
+
+		if ( SVGDisplayObjectBase.displayObjectManager == null )
+		{
+			SVGDisplayObjectBase.displayObjectManager = new DisplayObjectManager();
+		}
 	}
 
 	//---------------------------------------------------------------------------------------------------------
@@ -33,10 +49,32 @@ class SVGDisplayObjectBase extends SVGObjectBase
 	/**
 	 *
 	 */
+	protected markAsUpdated() : void
+	{
+		this._flagForUpdate = false;
+	}
+	/**
+	 *
+	 */
+	protected markForUpdate() : void
+	{
+		if ( ! this._flagForUpdate && this._defferUpdates)
+		{
+			SVGDisplayObjectBase.displayObjectManager.flagAsDirty( this );
+			this._flagForUpdate = true;
+		}
+		else if ( ! this._defferUpdates )
+		{
+			this.updateTransform();
+		}
+	}
+	/**
+	 *
+	 */
 	public updateTransform () : void
 	{
-        //this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" );
-        this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" + " scale(" + this._scaleX + "," + this._scaleY + ")");
+		this.element.setAttribute( "transform" , "translate(" + this._x + "," + this._y + ")" + " rotate(" + this._rotation + "," + this.registration.x + ", " + this.registration.y + ")" + " scale(" + this._scaleX + "," + this._scaleY + ")");
+		this._flagForUpdate = false;
 	}
 	/**
 	 *
@@ -190,7 +228,7 @@ class SVGDisplayObjectBase extends SVGObjectBase
 	public set x ( val : any )
 	{
 		this._x = val;
-		this.updateTransform();
+		this.markForUpdate();
 	}
 	public get x () : any
 	{
@@ -203,7 +241,7 @@ class SVGDisplayObjectBase extends SVGObjectBase
     public set y ( val : any )
     {
         this._y = val;
-        this.updateTransform();
+	    this.markForUpdate();
     }
     public get y () : any
     {
@@ -216,7 +254,7 @@ class SVGDisplayObjectBase extends SVGObjectBase
     public set scaleX ( val : any )
     {
         this._scaleX = val;
-        this.updateTransform();
+	    this.markForUpdate();
     }
     public get scaleX () : any
     {
@@ -242,7 +280,7 @@ class SVGDisplayObjectBase extends SVGObjectBase
 	public set rotation ( val : any )
 	{
 		this._rotation = val;
-		this.updateTransform();
+		this.markForUpdate();
 	}
 	public get rotation () : any
 	{
@@ -270,6 +308,18 @@ class SVGDisplayObjectBase extends SVGObjectBase
 		{
 			this.element.setAttribute( 'filter' , 'url(#' + filter.id + ')' );
 		}
+	}
+	/**
+	 *
+	 * @param val
+	 */
+	public set defferDraw ( val : boolean )
+	{
+		this._defferUpdates = val;
+	}
+	public get defferDraw () : boolean
+	{
+		return this._defferUpdates;
 	}
 
 	//---------------------------------------------------------------------------------------------------------

@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
 		ts: {
-
             kurst: {
                 src: ['src/**/*.ts'],
                 outDir:'bin/js',

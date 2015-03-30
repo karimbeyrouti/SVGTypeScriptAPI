@@ -178,7 +178,7 @@ class SVGTest extends EventDispatcher
 		var endColor : Color = new Color();
 			endColor.set( '#F6EB0F' );
 
-		var l : number = 20;
+		var l : number = 30;
 		var i : number = 1 / l;
 
 		for ( var c : number = 0 ; c < l ; c++ )
@@ -262,6 +262,8 @@ class SVGTest extends EventDispatcher
 				this.svg.append( this.group ); // keep group in front
 			 }
 		}
+
+		this.raframe();
 	}
 	/**
 	 *

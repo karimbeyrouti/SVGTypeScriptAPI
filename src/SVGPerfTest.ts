@@ -22,7 +22,7 @@ import AudioContextManager    	= require("./kurst/media/AudioContextManager");
 import UserMediaManager    		= require("./kurst/media/UserMediaManager");
 import UserMediaManagerEvent    		= require("./kurst/events/UserMediaManagerEvent");
 
-class SVGFFTTest extends EventDispatcher
+class SVGPerfTest extends EventDispatcher
 {
 
 	//------------------------------------------------------------------------------------------------------------------------------
@@ -31,16 +31,19 @@ class SVGFFTTest extends EventDispatcher
 	private svg 				: SVGCanvas;
 	private raf 				: RequestAnimationFrame;
 	private rects 				: Array<SVGRectangle> = new Array<SVGRectangle>();
-	private userMediaManager 	: UserMediaManager;
-	private audioContextManager : AudioContextManager;
-	private numBars				: number = 128;
-	private background			: SVGRectangle;
+	private numBars             : number = 256;
+	private t                   : number = 0;
+	private defferDraw          : boolean = true;
+	private info                : HTMLDivElement;
 
 	//------------------------------------------------------------------------------------------------------------------------------
 
 	constructor ()
 	{
 		super();
+
+		this.info  = document.createElement( 'div');
+		document.body.appendChild( this.info );
 
 		// Request Animation
 		this.raf = new RequestAnimationFrame( this.raframe , this );
@@ -51,31 +54,23 @@ class SVGFFTTest extends EventDispatcher
 		this.svg.width = 800;
 		this.svg.height = 600;
 
-		// Create background
-		this.background = new SVGRectangle();
-		this.background.fill( '#000000');
-		this.svg.append( this.background );
-
-		// Get user media / Mic
-		this.userMediaManager  = new UserMediaManager();
-		this.userMediaManager.getMicrophoneStream();
-		this.userMediaManager.addEventListener( UserMediaManagerEvent.MIC_INITIALIZED , ( e : UserMediaManagerEvent ) => this.onMicInitialized( e ) );
 
 		// Create FFT Rects
 		for ( var c : number = 0 ; c < this.numBars ; c ++ )
 		{
 			var rect = new SVGRectangle();
-				rect.fill( '#ffffff' );
-				rect.height = 10;
-				rect.width  =  ( window.innerWidth) / this.numBars;
-				rect.x      = ( rect.width * c ) + ( c * 3 );
-				rect.y      = ( this.background.height / 2 ) - ( rect.height / 2 );
-				rect.defferDraw = true;
-
+				rect.fill( "#"+((1<<24)*Math.random()|0).toString(16) );
+				rect.height = 200;
+				rect.width  =  200;//( window.innerWidth) / this.numBars;
+				rect.x      = window.innerWidth / 2;
+				rect.y      = window.innerHeight / 2;
+				rect.rotation = c * 5;
+				rect.defferDraw = this.defferDraw;
 			this.svg.append( rect );
 			this.rects.push( rect );
 
 		}
+
 
 		// Add SVG container to the document
 		document.body.appendChild( this.container );
@@ -83,17 +78,13 @@ class SVGFFTTest extends EventDispatcher
 		// resize handler
 		window.addEventListener( 'resize' , () => this.onResize() );
 		this.onResize();
-	}
-	/**
-	 * Callback for microphone intialised
-	 * @param e
-	 */
-	private onMicInitialized( e : UserMediaManagerEvent ) : void
-	{
-		this.audioContextManager = new AudioContextManager();
-		this.audioContextManager.createInputFromStream( e.stream );
-		this.audioContextManager.createAnalyser( 2048 );
+
 		this.raf.start();
+
+		document.addEventListener( 'mousedown' , () => this.onMouseDown() );
+
+
+
 	}
 	/**
 	 * Request Animation FRame
@@ -101,37 +92,62 @@ class SVGFFTTest extends EventDispatcher
 	private raframe () : void
 	{
 
-		this.audioContextManager.updateFrequencyData();
+		var st : number = Date.now();
+		var w : number = window.innerWidth / 2;
+		var h : number = window.innerHeight / 2;
 
-		for (var i : number = 0; i < this.numBars; ++i)
+		for ( var c : number = 0 ; c < this.rects.length ; c ++ )
 		{
-			var magnitude : number 		= this.audioContextManager.getBin( i , this.numBars , true );
+			this.t += 0.025;
 
-			var rect   	: SVGRectangle 	= this.rects[ i ];
-				rect.height         	=  ( window.innerHeight) * magnitude;
-				rect.y              	= ( this.background.height / 2 ) - ( rect.height / 2 );
+			var rect : SVGRectangle = this.rects[c];
+				rect.rotation += .25;
+				rect.scaleX = rect.scaleY = Math.sin( this.t );
+				rect.x      = w +  Math.sin( this.t ) * 90;
+				rect.y      = h +  Math.sin( this.t ) * 90;
 
 		}
 
-		this.svg.draw();
+		//if ( this.defferDraw )
+		//{
+			this.svg.draw();// if we deffer SVG drawing - then we need to render the changes on the SVGCanvas
+		//}
+
+		this.info.innerHTML = Date.now() - st + ' Ms<br/>Deffered Draw: ' + this.defferDraw;
+
 	}
 	/**
 	 * Resize Event Handler
 	 */
 	private onResize () : void
 	{
-		this.background.width 	= this.svg.width = window.innerWidth;
-		this.background.height 	= this.svg.height = window.innerHeight;
+		this.svg.width = window.innerWidth;
+		this.svg.height = window.innerHeight;
 
 		for ( var c : number = 0 ; c < this.rects.length ; c ++ )
 		{
 			var rect : SVGRectangle = this.rects[c];
-				rect.width  =  ( window.innerWidth) / this.numBars;
-				rect.x      = ( rect.width * c ) + ( c * 3 );
+				rect.x      = window.innerWidth / 2;
+				rect.y      = window.innerHeight / 2;
+
+		}
+
+	}
+	/**
+	 *
+	 */
+	private onMouseDown () : void
+	{
+		this.defferDraw = !this.defferDraw;
+
+		for ( var c : number = 0 ; c < this.rects.length ; c ++ )
+		{
+			var rect : SVGRectangle = this.rects[c];
+				rect.defferDraw = this.defferDraw;
+
 		}
 	}
 
-
 }
 
-export = SVGFFTTest;
+export = SVGPerfTest;

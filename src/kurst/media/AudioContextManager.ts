@@ -19,6 +19,7 @@ class AudioContextManager extends EventDispatcher {
     private multiplier      : number;
     private offset          : number;
     private mag             : number;
+	private counter         : number = 0;
 
     //--------------------------------------------------------------------------
 
@@ -77,9 +78,9 @@ class AudioContextManager extends EventDispatcher {
 
         if ( groupAverage  )
         {
-            for (var j = 0; j< this.multiplier; j++)
+            for ( this.counter = 0; this.counter< this.multiplier; this.counter++)
             {
-                this.mag += this.freqByteData[this.offset + j];
+                this.mag += this.freqByteData[this.offset + this.counter];
             }
             this.mag = ( this.mag / this.multiplier )
         }
